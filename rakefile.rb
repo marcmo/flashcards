@@ -1,16 +1,17 @@
 require 'rake'
 
+APP_NAME="flashcards"
 NODE_PATH="./node_modules"
 NODE_BIN_PATH="#{NODE_PATH}/.bin"
 ADB="$ANDROID_HOME/platform-tools/adb"
 REACT_NATIVE_CMD="node #{NODE_PATH}/react-native/local-cli/cli.js"
-IOS_PLIST="./ios/Carsharing/Info.plist"
+IOS_PLIST="./ios/#{APP_NAME}/Info.plist"
 PACKAGE="./package.json"
 GRADLE_PROPERTIES="android/gradle.properties"
 ANDROID_PACKAGE_NAME="com.flashcards"
+KEYSTORE_FILE="android/app/flashcards.keystore"
 # codepush
 OWNER_NAME="coldgrnd"
-APP_NAME="flashcards"
 
 def localExec(cmd)
   head, *tail = cmd.split(' ')
@@ -35,7 +36,7 @@ end
 task :cleanWatchman do
   sh "watchman watch-del-all"
 end
-task :clean => [:cleanReactCache, :cleanWatchman] do
+task :clean => [:cleanReactCache, :cleanWatchman, "android:clean", "ios:clean"] do
   sh "npm cache clean --force"
 end
 desc 'clean cache, node_modules, watchman, reinstall packages'
@@ -46,6 +47,7 @@ end
 desc 'burn down every cached resource and reinstall (may take some time)'
 task :burn => [:cleanWatchman] do
   sh "rm -rf #{NODE_PATH}"
+  sh "rm -rf $HOME/.gradle/caches/"
   sh "rm -fr $TMPDIR/react-native-packager-cache-*"
   yarn_cache_dir = `yarn cache dir`
   sh "rm -rf #{yarn_cache_dir}"
@@ -67,7 +69,7 @@ namespace :android do
 
   desc 'view keystore content'
   task :keystore do
-    sh "keytool -v -list -keystore android/app/carsharing.keystore"
+    sh "keytool -v -list -keystore #{KEYSTORE_FILE}"
   end
   desc 'assembleRelease for android (build release apk)'
   task :build do
@@ -82,7 +84,7 @@ namespace :android do
     end
   end
 
-  desc 'adb uninstall carsharing app'
+  desc 'adb uninstall app'
   task :uninstall do
     begin
       sh "#{ADB} uninstall #{ANDROID_PACKAGE_NAME}"
