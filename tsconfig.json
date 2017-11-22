@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "jsx": "react",
+    "moduleResolution": "node",
+    "lib": [ "dom", "es2015", "es2016" ],
+    "allowJs": true,
+    "strict": true,
+    "noEmit": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
+    "importHelpers": true
+  },
+  "exclude": [
+    "node_modules",
+    "App/Proto/generated"
+  ]
+}
