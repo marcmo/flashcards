@@ -6,6 +6,10 @@ import CodePush from 'react-native-code-push';
 import Drawer from './types/Drawer';
 import Modal from './types/Modal';
 
+export const CodePushConfig = {
+  checkFrequency: CodePush.CheckFrequency.ON_APP_RESUME,
+};
+
 export function registerScreens() {
   Navigation.registerComponent('example.Types', () => CodePush(Types));
 

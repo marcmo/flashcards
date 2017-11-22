@@ -1,3 +1,4 @@
 <resources>
+    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">0jZ6KTNRX6B7yx7gx-mkhTiGbMCrSJwiQxXgf</string>
     <string name="app_name">flashcards</string>
 </resources>

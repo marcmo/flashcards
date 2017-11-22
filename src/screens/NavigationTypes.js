@@ -1,14 +1,30 @@
 import React from 'react';
-import {StyleSheet, ScrollView} from 'react-native';
+import {Platform, StyleSheet, ScrollView} from 'react-native';
 import Row from '../components/Row';
 
 import CodePush from 'react-native-code-push';
 
+const CodePushLocalConfig = {
+  updateDialog: CodePush.DEFAULT_UPDATE_DIALOG,
+  installMode: CodePush.InstallMode.IMMEDIATE,
+  deploymentKey: Platform.select({
+    android: '0jZ6KTNRX6B7yx7gx-mkhTiGbMCrSJwiQxXgf',
+    ios: 'not known yet...find out',
+  }),
+};
 class NavigationTypes extends React.Component {
 
   constructor(props) {
     super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
+
+  checkForUpdates = () => {
+    CodePush.sync(CodePushLocalConfig);
+  }
+
+  componentWillMount() {
+    this.checkForUpdates();
   }
 
   onNavigatorEvent(event) {
@@ -36,7 +52,7 @@ class NavigationTypes extends React.Component {
   render() {
     return (
       <ScrollView style={styles.container}>
-        <Row title={'Toggle Drawer'} onPress={this.toggleDrawer}/>
+        <Row title={'Toggle Drawer6'} onPress={this.toggleDrawer}/>
       </ScrollView>
     );
   }

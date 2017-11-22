@@ -10,10 +10,22 @@ import java.util.List;
 
 public class MainApplication extends NavigationApplication {
 
+    private CodePush codePushInstance;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        codePushInstance =
+                new CodePush(getResources().getString(
+                        R.string.reactNativeCodePush_androidDeploymentKey),
+                        MainApplication.this, BuildConfig.DEBUG);
+    }
+
     @Override
     public String getJSMainModuleName() {
-        return "index";
+        return "index.bundle";
     }
+
     @Override
     public boolean isDebug() {
         // Make sure you are using BuildConfig from your own application
@@ -25,7 +37,7 @@ public class MainApplication extends NavigationApplication {
         // No need to add RnnPackage and MainReactPackage
         return Arrays.<ReactPackage>asList(
                 new VectorIconsPackage(),
-                new CodePush("0jZ6KTNRX6B7yx7gx-mkhTiGbMCrSJwiQxXgf", MainApplication.this, BuildConfig.DEBUG)
+                codePushInstance
         );
     }
 

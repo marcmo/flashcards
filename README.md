@@ -38,8 +38,12 @@ to MainApplication.java
 
 App has to be [signed before](https://facebook.github.io/react-native/docs/signed-apk-android.html)
 
-### Gotchas
+### enable debug in Android in AndroidManifest.xml:
 
-do NOT name your gradle-properties in a general way (e.g. "MYAPP_XYZ") but rather specific
+      android:debuggable="true"
+
+## Gotchas
+
+* do NOT name your gradle-properties in a general way (e.g. "MYAPP_XYZ") but rather specific
   (e.g. "FLASHCARDS_XYZ"). gradle *will* pull in your global properties!! might clash!
 

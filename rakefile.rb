@@ -12,6 +12,7 @@ ANDROID_PACKAGE_NAME="com.flashcards"
 KEYSTORE_FILE="android/app/flashcards.keystore"
 # codepush
 OWNER_NAME="coldgrnd"
+APPCENTER_SET_USER="-a #{OWNER_NAME}/#{APP_NAME}"
 
 def localExec(cmd)
   head, *tail = cmd.split(' ')
@@ -298,6 +299,7 @@ namespace :codepush do
   desc 'codepush (android version, staging)'
   task :android do
     sh "code-push release-react coldgrnd/flashcards Android -d Staging"
+    # sh "appcenter codepush release-react #{APPCENTER_SET_USER} --entry-file index.js"
   end
 
   desc 'codepush (ios version, staging)'
@@ -306,7 +308,7 @@ namespace :codepush do
   end
   desc 'get deployment keys'
   task :keys do
-    sh "appcenter codepush deployment list -a #{OWNER_NAME}/#{APP_NAME}"
+    sh "appcenter codepush deployment list #{APPCENTER_SET_USER}"
   end
 end
 namespace :version do
