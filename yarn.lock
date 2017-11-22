@@ -3388,12 +3388,6 @@ react-devtools-core@^2.5.0:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
-react-native-animatable@^1.2.4:
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.2.4.tgz#b5fb7657e8f6edadbc26697057a327fb920b3039"
-  dependencies:
-    prop-types "^15.5.10"
-
 react-native-navigation@^1.1.284:
   version "1.1.284"
   resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.284.tgz#4170a43f11d6c6ddb4c22542cf459c96e1043ea6"
