@@ -1,12 +1,13 @@
 import {Navigation, ScreenVisibilityListener} from 'react-native-navigation';
 
 import Types from './NavigationTypes';
+import CodePush from 'react-native-code-push';
 
 import Drawer from './types/Drawer';
 import Modal from './types/Modal';
 
 export function registerScreens() {
-  Navigation.registerComponent('example.Types', () => Types);
+  Navigation.registerComponent('example.Types', () => CodePush(Types));
 
   Navigation.registerComponent('example.Types.Drawer', () => Drawer);
   Navigation.registerComponent('example.Types.Modal', () => Modal);

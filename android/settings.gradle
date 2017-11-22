@@ -2,7 +2,9 @@ rootProject.name = 'flashcards'
 
 [
  'vector-icons/android',
- 'navigation/android/app'
+ 'navigation/android/app',
+ 'code-push/android/app',
+ 'appcenter/android',
 ].collect { it.split('/', 2) }.each {
   def (module, path) = it
   def name = "react-native-${module}"

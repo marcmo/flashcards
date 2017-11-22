@@ -22,3 +22,14 @@ in rn-cli.config.js
 ### Add basic packages
 
     yarn add ramda react-redux redux redux-form
+
+### Add react-native-navigation
+
+don't forget to add
+
+    @Override
+    public String getJSMainModuleName() {
+        return "index";
+    }
+
+to MainApplication.java

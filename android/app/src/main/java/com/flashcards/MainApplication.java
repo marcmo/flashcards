@@ -1,6 +1,7 @@
 package com.flashcards;
 
 import com.facebook.react.ReactPackage;
+import com.microsoft.codepush.react.CodePush;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnativenavigation.NavigationApplication;
 
@@ -23,7 +24,8 @@ public class MainApplication extends NavigationApplication {
         // Add additional packages you require here
         // No need to add RnnPackage and MainReactPackage
         return Arrays.<ReactPackage>asList(
-                new VectorIconsPackage()
+                new VectorIconsPackage(),
+                new CodePush("0jZ6KTNRX6B7yx7gx-mkhTiGbMCrSJwiQxXgf", MainApplication.this, BuildConfig.DEBUG)
         );
     }
 

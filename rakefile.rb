@@ -8,6 +8,9 @@ IOS_PLIST="./ios/Carsharing/Info.plist"
 PACKAGE="./package.json"
 GRADLE_PROPERTIES="android/gradle.properties"
 ANDROID_PACKAGE_NAME="com.flashcards"
+# codepush
+OWNER_NAME="coldgrnd"
+APP_NAME="flashcards"
 
 def localExec(cmd)
   head, *tail = cmd.split(' ')
@@ -287,6 +290,22 @@ def build_icon(icon_name, path, dest_path, width, height)
   sh "svgexport #{path}/#{icon_name}.svg #{dest_path}/#{icon_name}.png #{width}:#{height}"
   sh "svgexport #{path}/#{icon_name}.svg #{dest_path}/#{icon_name}@2x.png #{width * 2}:#{height * 2}"
   sh "svgexport #{path}/#{icon_name}.svg #{dest_path}/#{icon_name}@3x.png #{width * 3}:#{height * 3}"
+end
+
+namespace :codepush do
+  desc 'codepush (android version, staging)'
+  task :android do
+    sh "code-push release-react coldgrnd/flashcards Android -d Staging"
+  end
+
+  desc 'codepush (ios version, staging)'
+  task :ios do
+    sh "code-push release-react flashcards ios -d Staging"
+  end
+  desc 'get deployment keys'
+  task :keys do
+    sh "appcenter codepush deployment list -a #{OWNER_NAME}/#{APP_NAME}"
+  end
 end
 namespace :version do
   desc 'bump patch level'

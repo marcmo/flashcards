@@ -2,6 +2,8 @@ import React from 'react';
 import {StyleSheet, ScrollView} from 'react-native';
 import Row from '../components/Row';
 
+import CodePush from 'react-native-code-push';
+
 class NavigationTypes extends React.Component {
 
   constructor(props) {
