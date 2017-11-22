@@ -7,6 +7,7 @@ REACT_NATIVE_CMD="node #{NODE_PATH}/react-native/local-cli/cli.js"
 IOS_PLIST="./ios/Carsharing/Info.plist"
 PACKAGE="./package.json"
 GRADLE_PROPERTIES="android/gradle.properties"
+ANDROID_PACKAGE_NAME="com.flashcards"
 
 def localExec(cmd)
   head, *tail = cmd.split(' ')
@@ -81,7 +82,7 @@ namespace :android do
   desc 'adb uninstall carsharing app'
   task :uninstall do
     begin
-      sh "#{ADB} uninstall com.esrlabs.csm4"
+      sh "#{ADB} uninstall #{ANDROID_PACKAGE_NAME}"
     rescue Exception => e
       puts "could not uninstall (probably not here anymore)(#{e})"
     end

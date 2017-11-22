@@ -1,3 +1,15 @@
 rootProject.name = 'flashcards'
 
+[
+ 'vector-icons/android',
+ 'navigation/android/app'
+].collect { it.split('/', 2) }.each {
+  def (module, path) = it
+  def name = "react-native-${module}"
+  def projectName = ":${name}"
+  def nodePath = "${rootProject.projectDir}/../node_modules/${name}/${path}"
+  include projectName
+  project(projectName).projectDir = file(nodePath)
+}
+
 include ':app'
