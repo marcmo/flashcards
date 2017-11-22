@@ -1,10 +1,11 @@
 rootProject.name = 'flashcards'
+include ':appcenter'
+project(':appcenter').projectDir = new File(rootProject.projectDir, '../node_modules/appcenter/android')
 
 [
  'vector-icons/android',
  'navigation/android/app',
  'code-push/android/app',
- 'appcenter/android',
 ].collect { it.split('/', 2) }.each {
   def (module, path) = it
   def name = "react-native-${module}"
