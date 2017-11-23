@@ -1,9 +1,9 @@
 import { Navigation, ScreenVisibilityListener } from 'react-native-navigation';
-
-import Types from './NavigationTypes';
+import * as Redux from 'redux';
+import DecksScreen from './DecksScreen';
+import { RootState } from '../types';
 import CodePush from 'react-native-code-push';
 import { log } from '../lib/Logging';
-
 import Drawer from './types/Drawer';
 import Modal from './types/Modal';
 
@@ -11,11 +11,11 @@ export const CodePushConfig = {
   checkFrequency: CodePush.CheckFrequency.ON_APP_RESUME,
 };
 
-export function registerScreens() {
-  Navigation.registerComponent('example.Types', () => CodePush(CodePushConfig)(Types));
-  Navigation.registerComponent('example.Types.Drawer', () => Drawer);
-  Navigation.registerComponent('example.Types.Modal', () => Modal);
-}
+export const registerScreens = (store: Redux.Store<RootState>, provider) => {
+  Navigation.registerComponent('flashcards.DecksScreen', () => CodePush(CodePushConfig)(DecksScreen));
+  Navigation.registerComponent('flashcards.Types.Drawer', () => Drawer);
+  Navigation.registerComponent('flashcards.Types.Modal', () => Modal);
+};
 
 export function registerScreenVisibilityListener() {
   new ScreenVisibilityListener({

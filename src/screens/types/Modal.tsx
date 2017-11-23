@@ -33,7 +33,7 @@ class Modal extends React.Component<Props, any> {
 
   onPushScreen = () => {
     this.props.navigator.push({
-      screen: 'example.Types.Modal',
+      screen: 'flashcards.Types.Modal',
       title: `Screen ${this.props.count || 1}`,
       passProps: {
         count: this.props.count ? this.props.count + 1 : 2,
@@ -43,7 +43,7 @@ class Modal extends React.Component<Props, any> {
 
   onResetTo = () => {
     this.props.navigator.resetTo({
-      screen: 'example.Types.Modal',
+      screen: 'flashcards.Types.Modal',
       title: 'Modal',
     });
   }

@@ -10,7 +10,7 @@ class MyClass extends React.Component<Props, any> {
   onShowModal = () => {
     this.toggleDrawer();
     this.props.navigator.showModal({
-      screen: 'example.Types.Modal',
+      screen: 'flashcards.Types.Modal',
       title: `Modal`,
     });
   }

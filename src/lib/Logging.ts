@@ -18,19 +18,19 @@ export const object2string = (o: object | null | undefined): string => {
 export const log = {
   d: (s: string, o?: object) => {
     if (undefined === o) {
-      console.log(`[carsharing] ${s}`);
+      console.log(`[flashcards] ${s}`);
     } else {
-      console.log(`[carsharing] ${s} "${object2string(o)}"`);
+      console.log(`[flashcards] ${s} "${object2string(o)}"`);
     }
   },
   w: (s: string, o?: object) => {
     if (undefined === o) {
-      console.warn(`[carsharing] ${s}`);
+      console.warn(`[flashcards] ${s}`);
     } else {
-      console.warn(`[carsharing] ${s} ${object2string(o)}`);
+      console.warn(`[flashcards] ${s} ${object2string(o)}`);
     }
   },
   e: (s: string) => {
-    console.error(`[carsharing] ${s}`);
+    console.error(`[flashcards] ${s}`);
   },
 };

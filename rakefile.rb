@@ -40,13 +40,17 @@ end
 task :clean => [:cleanReactCache, :cleanWatchman, "android:clean", "ios:clean"] do
   sh "npm cache clean --force"
 end
+desc 'stop gradle process'
+task :stopGradle do
+  call_gradle("--stop")
+end
 desc 'clean cache, node_modules, watchman, reinstall packages'
-task :newclear => [:cleanReactCache, :cleanWatchman] do
+task :newclear => [:cleanReactCache, :cleanWatchman, :stopGradle] do
   sh "rm -rf ios/build && rm -rf #{NODE_PATH} && npm cache clean --force"
   sh "yarn install"
 end
 desc 'burn down every cached resource and reinstall (may take some time)'
-task :burn => [:cleanWatchman] do
+task :burn => [:cleanWatchman, :stopGradle] do
   sh "rm -rf #{NODE_PATH}"
   sh "rm -rf $HOME/.gradle/caches/"
   sh "rm -fr $TMPDIR/react-native-packager-cache-*"
@@ -55,12 +59,15 @@ task :burn => [:cleanWatchman] do
   sh "yarn install"
 end
 
+def call_gradle(args)
+  cd 'android' do
+    sh "./gradlew #{args}"
+  end
+end
 namespace :android do
   desc 'gradle clean android'
   task :clean do
-    cd 'android' do
-      sh "./gradlew clean"
-    end
+    call_gradle("clean")
   end
   desc 'create bundle'
   task :bundle do
@@ -74,15 +81,11 @@ namespace :android do
   end
   desc 'assembleRelease for android (build release apk)'
   task :build do
-    cd 'android' do
-      sh "./gradlew assembleRelease"
-    end
+    call_gradle("assembleRelease")
   end
   desc 'build & install android release apk'
   task :install => "android:build" do
-    cd 'android' do
-      sh "./gradlew installRelease"
-    end
+    call_gradle("installRelease")
   end
 
   desc 'adb uninstall app'
