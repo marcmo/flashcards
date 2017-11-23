@@ -1,55 +1,56 @@
-import React, {Component} from 'react';
-import {StyleSheet, View, Text, Button, TouchableOpacity, Platform} from 'react-native';
-import {Navigation} from 'react-native-navigation';
+import * as React from 'react';
+import { StyleSheet, View, Text, Button, TouchableOpacity, Platform } from 'react-native';
+import * as N from 'react-native-navigation';
 
-const CloseModalButton = ({text}) =>
-<TouchableOpacity
-  style={[styles.buttonContainer]}
-  onPress={() => navigator.dismissModal()}
->
-  <View style={styles.closeModalButton}>
-    <Text style={styles.buttonText}>{text}</Text>
-  </View>
-</TouchableOpacity>;
-Navigation.registerComponent('CloseModalButton', () => CloseModalButton);
+const CloseModalButton = ({ text }) => (
+  <TouchableOpacity
+    style={[styles.buttonContainer]}
+    onPress={() => N.Navigation.dismissModal()}
+  >
+    <View style={styles.closeModalButton}>
+      <Text style={styles.buttonText}>{text}</Text>
+    </View>
+  </TouchableOpacity>
+);
+N.Navigation.registerComponent('CloseModalButton', () => CloseModalButton);
 
-class Modal extends Component {
+interface Props {
+  navigator: N.Navigator;
+  count: number;
+}
+class Modal extends React.Component<Props, any> {
   static navigatorButtons = {
     rightButtons: [
       {
         id: 'close-modal-button',
         component: Platform.OS === 'ios' ? 'CloseModalButton' : null,
         passProps: {
-          text: 'Close'
-        }
-      }
-    ]
+          text: 'Close',
+        },
+      },
+    ],
   };
-
-  componentWillMount() {
-    navigator = this.props.navigator;
-  }
 
   onPushScreen = () => {
     this.props.navigator.push({
       screen: 'example.Types.Modal',
       title: `Screen ${this.props.count || 1}`,
       passProps: {
-        count: this.props.count ? this.props.count + 1 : 2
-      }
+        count: this.props.count ? this.props.count + 1 : 2,
+      },
     });
-  };
+  }
 
   onResetTo = () => {
     this.props.navigator.resetTo({
       screen: 'example.Types.Modal',
-      title: 'Modal'
+      title: 'Modal',
     });
-  };
+  }
 
   onPopToRoot = () => {
     this.props.navigator.popToRoot();
-  };
+  }
 
   render() {
     return (
@@ -58,17 +59,20 @@ class Modal extends Component {
         <View style={styles.button}>
           <Button
             onPress={this.onPushScreen}
-            title="Push Screen"/>
+            title="Push Screen"
+          />
         </View>
         <View style={styles.button}>
           <Button
             onPress={this.onResetTo}
-            title="Reset Stack"/>
+            title="Reset Stack"
+          />
         </View>
         {this.props.count > 1 && <View style={styles.button}>
           <Button
             onPress={this.onPopToRoot}
-            title="Pop To Root"/>
+            title="Pop To Root"
+          />
         </View>}
       </View>
     );
@@ -83,13 +87,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   button: {
-    marginTop: 16
+    marginTop: 16,
   },
   buttonContainer: {
     width: 48,
     height: 48,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   closeModalButton: {
     backgroundColor: 'tomato',
@@ -98,12 +102,11 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     overflow: 'hidden',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   buttonText: {
-    color: 'white'
-  }
+    color: 'white',
+  },
 });
 
 export default Modal;
-

@@ -1,21 +1,25 @@
-import React from 'react';
-import {StyleSheet, View, Button, Text} from 'react-native';
+import * as React from 'react';
+import { StyleSheet, View, Button, Text } from 'react-native';
+import * as N from 'react-native-navigation';
 
-class MyClass extends React.Component {
+interface Props {
+  navigator: N.Navigator;
+}
+class MyClass extends React.Component<Props, any> {
 
   onShowModal = () => {
     this.toggleDrawer();
     this.props.navigator.showModal({
       screen: 'example.Types.Modal',
-      title: `Modal`
+      title: `Modal`,
     });
-  };
+  }
 
   toggleDrawer = () => {
     this.props.navigator.toggleDrawer({
-      side: 'left'
+      side: 'left',
     });
-  };
+  }
 
   render() {
     return (
@@ -24,7 +28,8 @@ class MyClass extends React.Component {
         <View style={styles.button}>
           <Button
             onPress={this.onShowModal}
-            title="Show Modal"/>
+            title="Show Modal"
+          />
         </View>
       </View>
     );
@@ -40,8 +45,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   button: {
-    marginTop: 16
-  }
+    marginTop: 16,
+  },
 });
 
 export default MyClass;

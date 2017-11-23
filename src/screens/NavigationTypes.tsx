@@ -1,5 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 import {Platform, StyleSheet, ScrollView} from 'react-native';
+import * as N from 'react-native-navigation';
 import Row from '../components/Row';
 
 import CodePush from 'react-native-code-push';
@@ -12,7 +13,11 @@ const CodePushLocalConfig = {
     ios: 'not known yet...find out',
   }),
 };
-class NavigationTypes extends React.Component {
+
+interface Props {
+  navigator: N.Navigator;
+}
+class NavigationTypes extends React.Component<Props, any> {
 
   constructor(props) {
     super(props);
@@ -32,7 +37,7 @@ class NavigationTypes extends React.Component {
       const parts = event.link.split('/');
       if (parts[0] === 'tab1') {
         this.props.navigator.push({
-          screen: parts[1]
+          screen: parts[1],
         });
       }
     }
@@ -41,13 +46,13 @@ class NavigationTypes extends React.Component {
   toggleDrawer = () => {
     this.props.navigator.toggleDrawer({
       side: 'left',
-      animated: true
+      animated: true,
     });
-  };
+  }
 
   dismissLightBox = () => {
     this.props.navigator.dismissLightBox();
-  };
+  }
 
   render() {
     return (

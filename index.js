@@ -1,4 +1,4 @@
-import { AppRegistry } from 'react-native';
-import App from './src/app';
+import { AppRegistry } from 'react-native'
+import App from './src/app'
 
-AppRegistry.registerComponent('flashcards', () => App);
+AppRegistry.registerComponent('flashcards', () => App)

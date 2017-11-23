@@ -199,7 +199,7 @@ def lintDeep(args)
 end
 def tsc()
   begin
-    localExec "tsc"
+    localExec "tsc --pretty"
   rescue Exception => ex
     puts "tsc: #{ex.message}"
   end
