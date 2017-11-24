@@ -22,6 +22,11 @@ public class MainApplication extends NavigationApplication {
     }
 
     @Override
+    public String getJSBundleFile() {
+        return CodePush.getJSBundleFile();
+    }
+
+    @Override
     public String getJSMainModuleName() {
         return "index.bundle";
     }
