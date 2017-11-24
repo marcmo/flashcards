@@ -38,12 +38,23 @@ to MainApplication.java
 
 App has to be [signed before](https://facebook.github.io/react-native/docs/signed-apk-android.html)
 
-### enable debug in Android in AndroidManifest.xml:
+### setup redux
 
-      android:debuggable="true"
+* add redux and redux-persist
 
 ## Gotchas
 
-* do NOT name your gradle-properties in a general way (e.g. "MYAPP_XYZ") but rather specific
-  (e.g. "FLASHCARDS_XYZ"). gradle *will* pull in your global properties!! might clash!
+### gradle properties
+
+do NOT name your gradle-properties in a general way (e.g. "MYAPP_XYZ") but rather specific
+(e.g. "FLASHCARDS_XYZ"). gradle *will* pull in your global properties!! might clash!
+
+### Gradle build release fails
+
+    > Task :app:processReleaseResources
+    Failed to execute aapt
+
+gradle 4.1 problem, add this to gradle.properties
+
+    android.enableAapt2=false
 

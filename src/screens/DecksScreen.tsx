@@ -61,7 +61,7 @@ class DecksScreen extends React.Component<Props, any> {
   render() {
     return (
       <ScrollView style={styles.container}>
-        <Row title={'Toggle DrawerA'} onPress={this.toggleDrawer}/>
+        <Row title={'Toggle Drawer'} onPress={this.toggleDrawer}/>
       </ScrollView>
     );
   }

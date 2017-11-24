@@ -40,6 +40,19 @@ end
 task :clean => [:cleanReactCache, :cleanWatchman, "android:clean", "ios:clean"] do
   sh "npm cache clean --force"
 end
+desc 'clobber all setting files'
+task :clobber => :clean do
+	sh "rm -rf .DS_Store"
+	sh "rm -rf .gradle/"
+	sh "rm -rf android/.gradle/"
+	sh "rm -rf android/.idea/"
+	sh "rm -rf android/app/app.iml"
+	sh "rm -rf android/app/build/"
+	sh "rm -rf android/build/"
+	sh "rm -rf android/flashcards.iml"
+	sh "rm -rf android/local.properties"
+	sh "rm -rf node_modules/"
+end
 desc 'stop gradle process'
 task :stopGradle do
   call_gradle("--stop")
@@ -68,6 +81,7 @@ namespace :android do
   desc 'gradle clean android'
   task :clean do
     call_gradle("clean")
+    sh "rm -rf android/build"
   end
   desc 'create bundle'
   task :bundle do
