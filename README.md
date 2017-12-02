@@ -40,6 +40,24 @@ App has to be [signed before](https://facebook.github.io/react-native/docs/signe
 
 ### setup redux
 
+### codepush
+
+error: Update is invalid - A JS bundle file named "null" could not be found within the downloaded contents.
+Please check that you are releasing your CodePush updates using the exact same JS bundle file name that
+was shipped with your app's binary.
+
+* make sure to override these functions:
+
+    @Override
+    public String getJSBundleFile() {
+        return CodePush.getJSBundleFile();
+    }
+
+    @Override
+    public String getJSMainModuleName() {
+        return "index.bundle";
+    }
+
 * add redux and redux-persist
 
 ## Gotchas
