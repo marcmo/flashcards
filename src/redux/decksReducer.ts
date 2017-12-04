@@ -4,7 +4,14 @@ import * as actions from './actions';
 import * as R from 'ramda';
 
 export const INITIAL_STATE: DeckState = {
-  allDecks: [],
+  allDecks: [{
+    name: 'udacicards',
+    cards: [],
+  }, {
+    name: 'mycards',
+    cards: [],
+  },
+  ],
 };
 
 type DeckReducer = Redux.Reducer<DeckState>;

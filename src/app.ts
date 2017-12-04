@@ -6,7 +6,7 @@ import createStore from './redux';
 import { iconsLoaded } from './lib/appIcons';
 import { log } from './lib/Logging';
 
-// this will start our app
+// this will start the app
 const handleAppStateChange = (nextAppState) => {
   log.d(`next app state: ${nextAppState}`);
 };

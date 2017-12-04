@@ -23,6 +23,10 @@
   version "8.0.53"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.53.tgz#396b35af826fa66aad472c8cb7b8d5e277f4e6d8"
 
+"@types/ramda@^0.25.6":
+  version "0.25.6"
+  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.25.6.tgz#ae025d27f0df1f7993847db30fd84afe5b5b759e"
+
 "@types/react-native@^0.50.7":
   version "0.50.7"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.50.7.tgz#4c18bb14aa08f11934f539d2b8dcb2f1a6b88bd8"

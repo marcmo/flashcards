@@ -10,7 +10,10 @@ import reduxPersist from './reduxPersist';
 
 const baseReducer: Redux.Reducer<RootState> = persistCombineReducers(
   reduxPersist.storeConfig,
-  { decks: deckReducer },
+  {
+    decks: deckReducer,
+    form: formReducer,
+  },
 );
 
 const rootReducer = (state, action) => {
