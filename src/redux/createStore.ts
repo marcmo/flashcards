@@ -1,5 +1,6 @@
 import * as Redux from 'redux';
 import { applyMiddleware, compose, createStore } from 'redux';
+import Reactotron from 'reactotron-react-native';
 import { RootState } from '../Types';
 import { persistStore } from 'redux-persist';
 import { log } from '../lib/Logging';
@@ -14,7 +15,9 @@ const createOurStore = (rootReducer): Promise<Redux.Store<RootState>> => {
     try {
 
       // enhancers.push((window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__());
-      const store: Redux.Store<RootState> = createStore(rootReducer, compose(...enhancers));
+      const useReactotron = true;
+      const createAppropriateStore = useReactotron ? (Reactotron as any).createStore : createStore;
+      const store: Redux.Store<RootState> = createAppropriateStore(rootReducer, compose(...enhancers));
 
       // configure persistStore and check reducer version number
       if (reduxPersist.active) {

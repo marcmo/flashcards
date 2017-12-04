@@ -31,6 +31,8 @@
 		"jest": "21.2.1",
 		"react-native-typescript-transformer": "^1.1.4",
 		"react-test-renderer": "16.0.0",
+		"reactotron-react-native": "^1.13.2",
+		"reactotron-redux": "^1.13.0",
 		"tslib": "^1.8.0",
 		"tslint": "^5.8.0",
 		"tslint-react": "^3.2.0",

@@ -5,6 +5,7 @@ import { registerScreens, registerScreenVisibilityListener } from './screens';
 import createStore from './redux';
 import { iconsLoaded } from './lib/appIcons';
 import { log } from './lib/Logging';
+import './lib/reactotron';
 
 // this will start the app
 const handleAppStateChange = (nextAppState) => {
