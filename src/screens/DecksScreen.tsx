@@ -18,7 +18,6 @@ import createStore from '../redux';
 import * as actions from '../redux/actions';
 import * as R from 'ramda';
 import { RootState, Deck } from '../types';
-import { RoundedButton } from '../components/RoundedButton';
 import { Fonts, Colors, Metrics } from '../themes/';
 import { getIcon } from '../lib/appIcons';
 import { log } from '../lib/Logging';
@@ -37,7 +36,6 @@ interface RowData {
   name: string;
   deckCount: number;
 }
-const dataSource = (data): SectionListData<RowData>[] => ([{ data, key: 'DECKS' }]);
 interface Props {
   createDeck: () => void;
   decks: Array<Deck>;
@@ -82,14 +80,29 @@ class DecksScreen extends React.Component<Props, any> {
     this.props.navigator.dismissLightBox();
   }
 
-  submit = () => {
-    log.d('submit');
+  onPress = (deckName: string) => {
+    this.props.navigator.push({
+      screen: 'flashcards.SingleDeckScreen',
+      title: `${deckName}`,
+      passProps: {
+        nameOfDeck: deckName,
+      },
+    });
   }
 
   renderItem = (item: ListRenderItemInfo<RowData>) => {
     log.d('renderItem for DecksScreen, item:', item);
     return (
-      <DeckComponent {...item.item} />
+      <TouchableOpacity onPress={() => this.onPress(item.item.name)}>
+        <View style={styles.deck}>
+          <Text style={styles.text}>
+            {item.item.name}
+          </Text>
+          <Text style={styles.cardText}>
+            {item.item.deckCount} cards
+          </Text>
+        </View>
+      </TouchableOpacity>
     );
   }
 
@@ -139,16 +152,6 @@ class DecksScreen extends React.Component<Props, any> {
     );
   }
 }
-const DeckComponent = (item) => (
-  <View style={styles.deck}>
-    <Text style={styles.text}>
-      {item.name}
-    </Text>
-    <Text style={styles.text}>
-      {item.deckCount}
-    </Text>
-  </View>
-);
 
 const styles = StyleSheet.create({
   container: {
@@ -186,6 +189,10 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: Fonts.size.input,
+  },
+  cardText: {
+    fontSize: Fonts.size.medium,
+    color: Colors.text,
   },
   header: {
     fontSize: Fonts.size.h5,
