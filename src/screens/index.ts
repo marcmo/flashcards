@@ -2,6 +2,7 @@ import { Navigation, ScreenVisibilityListener } from 'react-native-navigation';
 import * as Redux from 'redux';
 import DecksScreen from './DecksScreen';
 import SingleDeckScreen from './SingleDeckScreen';
+import QuizScreen from './QuizScreen';
 import AddDeckScreen from '../components/AddDeckModal';
 import { RootState } from '../types';
 import CodePush from 'react-native-code-push';
@@ -16,6 +17,7 @@ export const CodePushConfig = {
 export const registerScreens = (store: Redux.Store<RootState>, provider) => {
   Navigation.registerComponent('flashcards.DecksScreen', () => CodePush(CodePushConfig)(DecksScreen), store, provider);
   Navigation.registerComponent('flashcards.SingleDeckScreen', () => SingleDeckScreen, store, provider);
+  Navigation.registerComponent('flashcards.QuizScreen', () => QuizScreen, store, provider);
   Navigation.registerComponent('flashcards.AddDeckScreen', () => AddDeckScreen, store, provider);
   Navigation.registerComponent('flashcards.Types.Drawer', () => Drawer);
   Navigation.registerComponent('flashcards.Types.Modal', () => Modal);

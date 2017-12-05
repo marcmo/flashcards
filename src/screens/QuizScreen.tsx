@@ -28,50 +28,22 @@ interface Props {
   cards: Array<Card>;
   navigator: N.Navigator;
 }
+const QuizScreen: React.SFC<Props> = (props: Props) => {
 
-class SingleDeckScreen extends React.Component<Props, object> {
-  constructor(props) {
-    super(props);
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
-  }
-
-  showQuiz = (deckName: string) => {
-    this.props.navigator.showModal({
-      screen: 'flashcards.QuizScreen',
-      title: `${deckName}`,
-      passProps: {
-        nameOfDeck: deckName,
-      },
-      navigatorButtons: {
-        rightButtons: [
-          {
-            id: 'close',
-            icon: getIcon('ios-arrow-down'),
-          },
-        ],
-      },
-    });
-  }
-
-  onNavigatorEvent = (event) => {
+  const onNavigatorEvent = (event) => {
     if (event.type === 'NavBarButtonPress') {
       if (event.id === 'close') {
-        this.props.navigator.pop();
+        props.navigator.dismissModal();
       }
     }
-  }
-
-  render() {
-    return (
-      <View style={styles.container} >
-        <Text>{this.props.nameOfDeck}</Text>
-        <Text>{this.props.cards.length} cards</Text>
-        <RoundedButton text="Add Card" onPress={() => this.props.createCard(this.props.nameOfDeck, 'question', 'answer')} />
-        <RoundedButton text="Start Quiz" onPress={() => this.showQuiz(this.props.nameOfDeck)} />
-      </View >
-    );
-  }
-}
+  };
+  props.navigator.setOnNavigatorEvent(onNavigatorEvent);
+  return (
+    <View style={styles.container} >
+      <Text>Quiz for {props.nameOfDeck}</Text>
+    </View >
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -136,4 +108,4 @@ const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
 const mapDispatchToProps = (dispatch) => ({
   createCard: (name: string, question: string, answer: string) => dispatch(actions.createAddCardAction(name, question, answer)),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(SingleDeckScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(QuizScreen);

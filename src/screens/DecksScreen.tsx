@@ -83,9 +83,18 @@ class DecksScreen extends React.Component<Props, any> {
   onPress = (deckName: string) => {
     this.props.navigator.push({
       screen: 'flashcards.SingleDeckScreen',
-      title: `${deckName}`,
+      title: `${deckName}-Deck`,
       passProps: {
         nameOfDeck: deckName,
+      },
+      backButtonHidden: true,
+      navigatorButtons: {
+        rightButtons: [
+          {
+            id: 'close',
+            icon: getIcon('ios-close'),
+          },
+        ],
       },
     });
   }
