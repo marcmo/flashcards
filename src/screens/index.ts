@@ -4,6 +4,7 @@ import DecksScreen from './DecksScreen';
 import SingleDeckScreen from './SingleDeckScreen';
 import QuizScreen from './QuizScreen';
 import AddDeckScreen from '../components/AddDeckModal';
+import AddCardScreen from '../components/AddCardModal';
 import { RootState } from '../types';
 import CodePush from 'react-native-code-push';
 import { log } from '../lib/Logging';
@@ -19,6 +20,7 @@ export const registerScreens = (store: Redux.Store<RootState>, provider) => {
   Navigation.registerComponent('flashcards.SingleDeckScreen', () => SingleDeckScreen, store, provider);
   Navigation.registerComponent('flashcards.QuizScreen', () => QuizScreen, store, provider);
   Navigation.registerComponent('flashcards.AddDeckScreen', () => AddDeckScreen, store, provider);
+  Navigation.registerComponent('flashcards.AddCardScreen', () => AddCardScreen, store, provider);
   Navigation.registerComponent('flashcards.Types.Drawer', () => Drawer);
   Navigation.registerComponent('flashcards.Types.Modal', () => Modal);
 };

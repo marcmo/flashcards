@@ -37,9 +37,9 @@ interface RowData {
   deckCount: number;
 }
 interface Props {
-  createDeck: () => void;
   decks: Array<Deck>;
   rowData: Array<RowData>;
+  setCurrentDeck: (name: string) => any;
   navigator: N.Navigator;
 }
 class DecksScreen extends React.Component<Props, any> {
@@ -81,6 +81,7 @@ class DecksScreen extends React.Component<Props, any> {
   }
 
   onPress = (deckName: string) => {
+    this.props.setCurrentDeck(deckName);
     this.props.navigator.push({
       screen: 'flashcards.SingleDeckScreen',
       title: `${deckName}-Deck`,
@@ -235,10 +236,10 @@ const createRowData = (d: Deck): RowData => {
   };
 };
 const mapStateToProps = (state: RootState) => ({
-  decks: state.decks,
+  decks: state.decks.allDecks,
   rowData: R.map(createRowData, state.decks.allDecks),
 });
 const mapDispatchToProps = (dispatch) => ({
-  createDeck: (name: string) => dispatch(actions.createAddDeckAction(name)),
+  setCurrentDeck: (name: string) => dispatch(actions.createChangeDeckAction(name)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(DecksScreen);

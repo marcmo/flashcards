@@ -8,6 +8,7 @@ export interface Deck {
 }
 export interface DeckState {
   readonly allDecks: Array<Deck>;
+  readonly currentDeckName?: string;
 }
 export interface RootState {
   readonly decks: DeckState;

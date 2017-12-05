@@ -9,7 +9,10 @@ import { reduxForm, Field } from 'redux-form';
 import { Colors } from '../themes';
 import { log } from '../lib/Logging';
 import { RoundedButton } from '../components/RoundedButton';
-import { createAddDeckAction } from '../redux/actions';
+import { createAddCardAction } from '../redux/actions';
+import * as N from 'react-native-navigation';
+import { connect } from 'react-redux';
+import * as T from '../types';
 
 const renderInput: React.StatelessComponent<any> = ({ input: { onChange, ...restInput } }) => {
   return (
@@ -22,6 +25,10 @@ const renderInput: React.StatelessComponent<any> = ({ input: { onChange, ...rest
   );
 };
 
+interface Props {
+  deckName?: string;
+  navigator: N.Navigator;
+}
 class Form extends React.Component<any, object> {
   constructor(props) {
     super(props);
@@ -29,7 +36,7 @@ class Form extends React.Component<any, object> {
   }
 
   submit = (values, dispatch) => {
-    dispatch(createAddDeckAction(values.deckname));
+    dispatch(createAddCardAction(this.props.deckName, values.question, values.answer));
     this.props.navigator.dismissModal();
   }
 
@@ -41,16 +48,20 @@ class Form extends React.Component<any, object> {
     }
   }
   componentWillMount() {
-    navigator = this.props.navigator;
     this.setState({ isReady: true });
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text>new deck name:</Text>
+        <Text>question:</Text>
         <Field
-          name="deckname"
+          name="question"
+          component={renderInput}
+        />
+        <Text>answer:</Text>
+        <Field
+          name="answer"
           component={renderInput}
         />
         <RoundedButton text="Submit" onPress={this.props.handleSubmit(this.submit)} />
@@ -59,9 +70,22 @@ class Form extends React.Component<any, object> {
   }
 }
 
+const mapStateToProps = (state: T.RootState) => ({
+  deckName: state.decks.currentDeckName,
+});
+
+const mapDispatchToProps = (dispatch)  => ({
+    // ...
+});
+
+const ConnectedForm = connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(Form);
+
 export default reduxForm({
-  form: 'addDeck',
-})(Form as any);
+  form: 'addCard',
+})(ConnectedForm as any);
 
 const styles = StyleSheet.create({
   buttonContainer: {

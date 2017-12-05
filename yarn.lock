@@ -4076,12 +4076,19 @@ redux-persist@^5.4.0:
   version "5.4.0"
   resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-5.4.0.tgz#a1062313546a9d4ca6f9271464d18f736e8ca394"
 
-redux@^3.6.0, redux@^3.7.1, redux@^3.7.2:
+redux@^3.6.0, redux@^3.7.1:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/redux/-/redux-3.7.2.tgz#06b73123215901d25d065be342eb026bc1c8537b"
   dependencies:
     lodash "^4.2.1"
     lodash-es "^4.2.1"
+    loose-envify "^1.1.0"
+    symbol-observable "^1.0.3"
+
+redux@v4.0.0-beta.1:
+  version "4.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.0-beta.1.tgz#fc1cf2fc33d23a1a201d00235b3e27a331261ec7"
+  dependencies:
     loose-envify "^1.1.0"
     symbol-observable "^1.0.3"
 

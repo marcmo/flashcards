@@ -52,6 +52,20 @@ class SingleDeckScreen extends React.Component<Props, object> {
       },
     });
   }
+  showModal = () => {
+    this.props.navigator.showModal({
+      screen: 'flashcards.AddCardScreen',
+      title: 'Add Identity',
+      navigatorButtons: {
+        rightButtons: [
+          {
+            id: 'close',
+            icon: getIcon('ios-close'),
+          },
+        ],
+      },
+    });
+  }
 
   onNavigatorEvent = (event) => {
     if (event.type === 'NavBarButtonPress') {
@@ -66,8 +80,14 @@ class SingleDeckScreen extends React.Component<Props, object> {
       <View style={styles.container} >
         <Text>{this.props.nameOfDeck}</Text>
         <Text>{this.props.cards.length} cards</Text>
-        <RoundedButton text="Add Card" onPress={() => this.props.createCard(this.props.nameOfDeck, 'question', 'answer')} />
-        <RoundedButton text="Start Quiz" onPress={() => this.showQuiz(this.props.nameOfDeck)} />
+        <RoundedButton
+          text="Add Card"
+          onPress={() => this.showModal()}
+        />
+        <RoundedButton
+          text="Start Quiz"
+          onPress={() => this.showQuiz(this.props.nameOfDeck)}
+        />
       </View >
     );
   }
