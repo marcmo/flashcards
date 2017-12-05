@@ -1,7 +1,8 @@
 import * as Redux from 'redux';
 import { AsyncStorage } from 'react-native';
 import { persistStore } from 'redux-persist';
-import { RootState } from '../Types';
+import { RootState } from '../types';
+import { log } from '../lib/Logging';
 import reduxPersist from '../redux/reduxPersist';
 
 const updateReducers = (store: Redux.Store<RootState>) => {
@@ -12,6 +13,7 @@ const updateReducers = (store: Redux.Store<RootState>) => {
   AsyncStorage.getItem('@flashcardsStore:reducerVersion').then((localVersion) => {
     if (localVersion !== reducerVersion) {
       // Purge store
+      log.w('reducer version changed, purging store!');
       persistStore(store, null).purge();
       AsyncStorage.setItem('@flashcardsStore:reducerVersion', reducerVersion);
     } else {

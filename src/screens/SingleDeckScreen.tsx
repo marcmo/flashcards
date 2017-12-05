@@ -26,9 +26,10 @@ import { log } from '../lib/Logging';
 const dimWidth = Dimensions.get('window').width;
 
 interface Props {
-  createCard: (name: string, question: string, answer: string) => void;
   nameOfDeck: string;
-  cards: Array<Card>;
+  freshCardsCount: number;
+  correctCardsCount: number;
+  incorrectCardsCount: number;
   navigator: N.Navigator;
 }
 
@@ -82,7 +83,7 @@ class SingleDeckScreen extends React.Component<Props, object> {
     return (
       <View style={styles.container} >
         <Text style={styles.titleText}>{this.props.nameOfDeck}</Text>
-        <Text style={styles.countText}>{this.props.cards.length} cards</Text>
+        <Text style={styles.countText}>{this.props.freshCardsCount} fresh cards</Text>
         <RoundedButton
           text="Add Card"
           passedStyle={styles.addButton}
@@ -155,17 +156,28 @@ const styles = StyleSheet.create({
   },
 });
 
-const filterDeckCards = (deckName: string, allDecks: Array<Deck>): Array<Card> => {
-  const deck = R.head(R.filter((d: Deck) => d.name === deckName, allDecks));
-  return (deck != null) ? deck.cards : [];
+const findDeck = (deckName: string, allDecks: Array<Deck>): Deck | undefined => (
+  R.head(R.filter((d: Deck) => d.name === deckName, allDecks))
+);
+const filterFreshCards = (deckName: string, allDecks: Array<Deck>): number => {
+  const deck = findDeck(deckName, allDecks);
+  return (deck != null) ? deck.freshCards.length : 0;
+};
+const filterCorrectCards = (deckName: string, allDecks: Array<Deck>): number => {
+  const deck = findDeck(deckName, allDecks);
+  return (deck != null) ? deck.correctCards.length : 0;
+};
+const filterIncorrectCards = (deckName: string, allDecks: Array<Deck>): number => {
+  const deck = findDeck(deckName, allDecks);
+  return (deck != null) ? deck.incorrectCards.length : 0;
 };
 interface OwnProps {
   nameOfDeck: string;
 }
 const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
-  cards: filterDeckCards(ownProps.nameOfDeck, state.decks.allDecks),
+  freshCardsCount: filterFreshCards(ownProps.nameOfDeck, state.decks.allDecks),
+  correctCardsCount: filterFreshCards(ownProps.nameOfDeck, state.decks.allDecks),
+  incorrectCardsCount: filterFreshCards(ownProps.nameOfDeck, state.decks.allDecks),
 });
-const mapDispatchToProps = (dispatch) => ({
-  createCard: (name: string, question: string, answer: string) => dispatch(actions.createAddCardAction(name, question, answer)),
-});
+const mapDispatchToProps = (dispatch) => ({});
 export default connect(mapStateToProps, mapDispatchToProps)(SingleDeckScreen);

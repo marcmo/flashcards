@@ -1,12 +1,12 @@
 import { AsyncStorage } from 'react-native';
 
 const REDUX_PERSIST = {
-  active: false,
-  reducerVersion: '0.1',
+  active: true,
+  reducerVersion: '0.6',
   storeConfig: {
     key: 'primary',
     storage: AsyncStorage,
-    whitelist: ['decks'],
+    whitelist: ['decks', 'cardSet'],
     debug: true,
   },
 };

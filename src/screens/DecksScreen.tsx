@@ -34,7 +34,7 @@ const CodePushLocalConfig = {
 };
 interface RowData {
   name: string;
-  deckCount: number;
+  cardCount: number;
 }
 interface Props {
   decks: Array<Deck>;
@@ -109,7 +109,7 @@ class DecksScreen extends React.Component<Props, any> {
             {item.item.name}
           </Text>
           <Text style={styles.cardText}>
-            {item.item.deckCount} cards
+            {item.item.cardCount} cards
           </Text>
         </View>
       </TouchableOpacity>
@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
 const createRowData = (d: Deck): RowData => {
   return {
     name: d.name,
-    deckCount: d.cards.length,
+    cardCount: d.freshCards.length + d.correctCards.length + d.incorrectCards.length,
   };
 };
 const mapStateToProps = (state: RootState) => ({

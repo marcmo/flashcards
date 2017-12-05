@@ -9,7 +9,7 @@ import { reduxForm, Field } from 'redux-form';
 import { Colors } from '../themes';
 import { log } from '../lib/Logging';
 import { RoundedButton } from '../components/RoundedButton';
-import { createAddCardAction } from '../redux/actions';
+import { createCreateCardAction, createAddCardAction } from '../redux/actions';
 import * as N from 'react-native-navigation';
 import { connect } from 'react-redux';
 import * as T from '../types';
@@ -36,7 +36,9 @@ class Form extends React.Component<any, object> {
   }
 
   submit = (values, dispatch) => {
-    dispatch(createAddCardAction(this.props.deckName, values.question, values.answer));
+    const cardId = Date.now();
+    dispatch(createCreateCardAction(this.props.deckName, cardId, values.question, values.answer));
+    dispatch(createAddCardAction(this.props.deckName, cardId));
     this.props.navigator.dismissModal();
   }
 
