@@ -22,7 +22,6 @@ export const deckReducer: DeckReducer =
   (state = INITIAL_STATE, action: actions.RootAction): T.DeckState => {
     switch (action.type) {
       case actions.RootActionType.ADD_DECK:
-        log.w('in reducer ADD_DECK');
         return {
           ...state,
           allDecks: R.append({

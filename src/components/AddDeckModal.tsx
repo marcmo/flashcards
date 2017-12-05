@@ -6,9 +6,9 @@ import {
   View,
 } from 'react-native';
 import { reduxForm, Field } from 'redux-form';
-import { Colors } from '../themes';
 import { log } from '../lib/Logging';
 import { RoundedButton } from '../components/RoundedButton';
+import { Fonts, Colors, Metrics } from '../themes/';
 import { createAddDeckAction } from '../redux/actions';
 
 const renderInput: React.StatelessComponent<any> = ({ input: { onChange, ...restInput } }) => {
@@ -48,12 +48,17 @@ class Form extends React.Component<any, object> {
   render() {
     return (
       <View style={styles.container}>
-        <Text>new deck name:</Text>
+        <View style={styles.textbox}>
+          <Text style={styles.question}>What is the title of your new deck?</Text>
+        </View>
         <Field
           name="deckname"
           component={renderInput}
         />
-        <RoundedButton text="Submit" onPress={this.props.handleSubmit(this.submit)} />
+        <RoundedButton
+          text="Submit"
+          onPress={this.props.handleSubmit(this.submit)}
+        />
       </View>
     );
   }
@@ -74,6 +79,11 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.snow,
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
+  },
+  textbox: {
+    marginBottom: Metrics.doubleSection,
+    marginHorizontal: Metrics.doubleSection,
   },
   input: {
     borderColor: 'black',
@@ -83,5 +93,9 @@ const styles = StyleSheet.create({
     width: 250,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  question: {
+    ...Fonts.style.h1,
+    textAlign: 'center',
   },
 });

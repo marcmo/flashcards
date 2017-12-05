@@ -9,6 +9,7 @@ import {
   ListRenderItemInfo,
   SectionListData,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import * as N from 'react-native-navigation';
 import { connect } from 'react-redux';
@@ -21,6 +22,8 @@ import { RoundedButton } from '../components/RoundedButton';
 import { Fonts, Colors, Metrics } from '../themes/';
 import { getIcon } from '../lib/appIcons';
 import { log } from '../lib/Logging';
+
+const dimWidth = Dimensions.get('window').width;
 
 interface Props {
   createCard: (name: string, question: string, answer: string) => void;
@@ -78,14 +81,17 @@ class SingleDeckScreen extends React.Component<Props, object> {
   render() {
     return (
       <View style={styles.container} >
-        <Text>{this.props.nameOfDeck}</Text>
-        <Text>{this.props.cards.length} cards</Text>
+        <Text style={styles.titleText}>{this.props.nameOfDeck}</Text>
+        <Text style={styles.countText}>{this.props.cards.length} cards</Text>
         <RoundedButton
           text="Add Card"
+          passedStyle={styles.addButton}
+          passedTextStyle={styles.buttonText}
           onPress={() => this.showModal()}
         />
         <RoundedButton
           text="Start Quiz"
+          passedStyle={styles.button}
           onPress={() => this.showQuiz(this.props.nameOfDeck)}
         />
       </View >
@@ -98,7 +104,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#efefef',
+    backgroundColor: Colors.snow,
   },
   formContainer: {
     flex: 1,
@@ -111,8 +117,15 @@ const styles = StyleSheet.create({
     top: 0,
     bottom: 0,
   },
-  text: {
-    fontSize: Fonts.size.input,
+  titleText: {
+    ...Fonts.style.h1,
+    color: Colors.panther,
+    marginBottom: Metrics.section,
+  },
+  countText: {
+    ...Fonts.style.normal,
+    color: Colors.text,
+    marginBottom: Metrics.doubleSection,
   },
   cardText: {
     fontSize: Fonts.size.medium,
@@ -121,21 +134,20 @@ const styles = StyleSheet.create({
   header: {
     fontSize: Fonts.size.h5,
   },
+  button: {
+    backgroundColor: Colors.coal,
+    width: dimWidth * .6,
+    height: 50,
+  },
   addButton: {
-    borderColor: 'rgba(0,0,0,0.2)',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 60,
-    height: 60,
-    backgroundColor: Colors.charcoal,
-    borderRadius: 100,
+    borderColor: Colors.coal,
+    borderWidth: 2,
+    width: dimWidth * .6,
+    height: 50,
+    backgroundColor: Colors.snow,
   },
   buttonText: {
-    color: Colors.snow,
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: Fonts.size.medium,
-    marginVertical: Metrics.baseMargin,
+    color: Colors.coal,
   },
   icon: {
     fontSize: 30,

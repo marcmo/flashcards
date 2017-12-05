@@ -6,10 +6,13 @@ import { Text, TouchableOpacity } from 'react-native';
 interface RoundedButtonProps {
   onPress: () => void;
   text: string;
+  passedStyle?: object;
+  passedTextStyle?: object;
   children?: string;
   navigator?: object;
 }
-export const RoundedButton: React.SFC<RoundedButtonProps> = ({ onPress, text, children }) => {
+export const RoundedButton: React.SFC<RoundedButtonProps> =
+  ({ onPress, text, passedStyle, passedTextStyle, children }) => {
 
   const getText = (): string => {
     const buttonText: string = (typeof children === 'undefined')
@@ -19,8 +22,8 @@ export const RoundedButton: React.SFC<RoundedButtonProps> = ({ onPress, text, ch
   };
 
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Text style={styles.buttonText}>{getText()}</Text>
+    <TouchableOpacity style={[styles.button, passedStyle]} onPress={onPress}>
+      <Text style={[styles.buttonText, passedTextStyle]}>{getText()}</Text>
     </TouchableOpacity>
   );
 };
