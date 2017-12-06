@@ -25,6 +25,7 @@ const colors = {
   wetAsphalt: '#34495e',
   panther: '#161616',
   charcoal: '#595959',
+  darkGray: '#212121',
   coal: '#2d2d2d',
   bloodOrange: '#fb5f26',
   snow: 'white',

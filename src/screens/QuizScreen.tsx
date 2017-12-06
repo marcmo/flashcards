@@ -39,9 +39,15 @@ interface Props {
   navigator: N.Navigator;
 }
 
-class QuizScreen extends React.Component<Props, object> {
+interface State {
+  side: 'Question' | 'Answer';
+}
+class QuizScreen extends React.Component<Props, State> {
   constructor(props) {
     super(props);
+    this.state = {
+      side: 'Question',
+    };
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
   }
 
@@ -54,6 +60,7 @@ class QuizScreen extends React.Component<Props, object> {
   }
 
   getFormattedQuestion = (q: string): string => (q.endsWith('?') ? q : `${q}?`);
+  getFormattedAnswer = (q: string): string => (q.endsWith('!') ? q : `${q}!`);
 
   cardDone = (cardId: number, correct: boolean) => {
     this.props.markAsDone(this.props.nameOfDeck, cardId, correct);
@@ -61,46 +68,71 @@ class QuizScreen extends React.Component<Props, object> {
       this.props.nameOfDeck,
       (this.props.cardIndex + 1) % this.props.freshCards.length);
   }
+  getLinktext = () => (this.state.side === 'Question' ? 'answer' : 'question');
+  flipCard = () => (this.setState((prevState: State) => ({ side: prevState.side === 'Question' ? 'Answer' : 'Question' })));
 
   renderCard = () => {
     const currentCard: Card | undefined = R.head(this.props.freshCards);
     return (
       (currentCard != null)
         ?
-        (
-          <View style={styles.container} >
-            <View style={styles.headerContainer}>
-              <Text style={styles.header}>{this.props.correctCards.length + this.props.incorrectCards.length}/{this.props.freshCards.length}</Text>
-            </View>
-            <View style={styles.contentContainer}>
-              <Text style={styles.questionText}>{this.getFormattedQuestion(currentCard.question)}</Text>
-              <RoundedButton
-                text="Correct"
-                passedStyle={styles.correctButton}
-                passedTextStyle={styles.buttonText}
-                onPress={() => this.cardDone(currentCard.cardId, true)}
-              />
-              <RoundedButton
-                text="Incorrect"
-                passedStyle={styles.incorrectButton}
-                onPress={() => this.cardDone(currentCard.cardId, false)}
-              />
-              {this.props.correctCards.length + this.props.incorrectCards.length > 0 &&
+        (this.state.side === 'Question')
+          ?
+          (
+            <View style={styles.container} >
+              <View style={styles.headerContainer}>
+                <Text style={styles.header}>{this.props.correctCards.length + this.props.incorrectCards.length}/{this.props.freshCards.length}</Text>
+              </View>
+              <View style={styles.contentContainer}>
+                <Text style={styles.questionText}>{this.getFormattedQuestion(currentCard.question)}</Text>
                 <RoundedButton
-                  text="Reset Deck"
-                  passedStyle={styles.resetButton}
+                  text={this.getLinktext()}
+                  passedStyle={styles.flipButton}
                   passedTextStyle={styles.resetButtonText}
-                  onPress={() => this.props.resetDeck(this.props.nameOfDeck)}
+                  onPress={() => this.flipCard()}
                 />
-              }
-            </View>
-          </View >
-        )
+                <RoundedButton
+                  text="Correct"
+                  passedStyle={styles.correctButton}
+                  passedTextStyle={styles.buttonText}
+                  onPress={() => this.cardDone(currentCard.cardId, true)}
+                />
+                <RoundedButton
+                  text="Incorrect"
+                  passedStyle={styles.incorrectButton}
+                  onPress={() => this.cardDone(currentCard.cardId, false)}
+                />
+                {this.props.correctCards.length + this.props.incorrectCards.length > 0 &&
+                  <RoundedButton
+                    text="Reset Deck"
+                    passedStyle={styles.resetButton}
+                    passedTextStyle={styles.resetButtonText}
+                    onPress={() => this.props.resetDeck(this.props.nameOfDeck)}
+                  />
+                }
+              </View>
+            </View >
+          )
+          :
+          (
+            <View style={styles.container} >
+              <View style={styles.contentContainer}>
+                <Text style={styles.questionText}>{this.getFormattedAnswer(currentCard.answer)}</Text>
+                <RoundedButton
+                  text={this.getLinktext()}
+                  passedStyle={styles.flipButton}
+                  passedTextStyle={styles.resetButtonText}
+                  onPress={() => this.flipCard()}
+                />
+              </View >
+            </View >
+          )
         :
         (
           <View style={styles.container} >
             <Text>Error for {this.props.nameOfDeck}!!</Text>
-          </View >)
+          </View >
+        )
     );
   }
 
@@ -109,13 +141,22 @@ class QuizScreen extends React.Component<Props, object> {
       (this.props.freshCards.length === 0)
         ? (
           <View style={styles.container} >
-            <Text>Quiz for {this.props.nameOfDeck} empty!</Text>
-            <RoundedButton
-              text="Play again"
-              passedStyle={styles.incorrectButton}
-              onPress={() => this.props.resetDeck(this.props.nameOfDeck)}
-            />
-          </View >)
+            <View style={styles.contentContainer}>
+              <Text style={styles.cardText}>Quiz for {this.props.nameOfDeck} done</Text>
+              <Text
+                style={styles.cardText}
+              >
+                {this.props.correctCards.length} out of {this.props.correctCards.length + this.props.incorrectCards.length} were correct!
+              </Text>
+              <RoundedButton
+                text="Play again"
+                passedStyle={styles.resetButton}
+                passedTextStyle={styles.resetButtonText}
+                onPress={() => this.props.resetDeck(this.props.nameOfDeck)}
+              />
+            </View >
+          </View >
+        )
         : this.renderCard()
     );
   }
@@ -127,13 +168,13 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     flex: 1,
-    backgroundColor: 'orange',
+    backgroundColor: Colors.snow,
   },
   contentContainer: {
     flex: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'pink',
+    backgroundColor: Colors.snow,
   },
   formContainer: {
     flex: 1,
@@ -150,7 +191,7 @@ const styles = StyleSheet.create({
     ...Fonts.style.h1,
   },
   cardText: {
-    fontSize: Fonts.size.medium,
+    ...Fonts.style.normal,
     color: Colors.text,
   },
   header: {
@@ -168,6 +209,13 @@ const styles = StyleSheet.create({
     borderColor: Colors.coal,
     borderWidth: 2,
     width: dimWidth * .6,
+    height: 50,
+    backgroundColor: Colors.snow,
+  },
+  flipButton: {
+    borderColor: Colors.coal,
+    borderWidth: 1,
+    width: dimWidth * .4,
     height: 50,
     backgroundColor: Colors.snow,
   },

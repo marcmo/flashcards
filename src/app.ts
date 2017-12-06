@@ -5,6 +5,7 @@ import { registerScreens, registerScreenVisibilityListener } from './screens';
 import createStore from './redux';
 import { iconsLoaded } from './lib/appIcons';
 import { log } from './lib/Logging';
+import { Fonts, Colors, Metrics } from './themes/';
 import './lib/reactotron';
 
 // this will start the app
@@ -26,7 +27,8 @@ storePromise.then((store) => {
         navigatorStyle: {
           navBarButtonColor: '#ffffff',
           navBarTextColor: '#ffffff',
-          navBarBackgroundColor: '#003a66',
+          navBarBackgroundColor: Colors.darkGray,
+          statusBarTextColorScheme: 'light',
         },
       },
       drawer: {
