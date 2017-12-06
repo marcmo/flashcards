@@ -110,4 +110,33 @@ describe('deckReducer', () => {
       }),
     ).toEqual(stateC);
   });
+
+  it('should handle RESET_DECK', () => {
+    const stateA = {
+      allDecks: [{
+        name: 'DeckA',
+        freshCards: [123, 222],
+        correctCards: [33],
+        incorrectCards: [44],
+        index: 0,
+      }],
+    };
+    const stateB = {
+      allDecks: [{
+        name: 'DeckA',
+        freshCards: [123, 222, 33, 44],
+        correctCards: [],
+        incorrectCards: [],
+        index: 0,
+      }],
+    };
+    expect(
+      deckReducer(stateA, {
+        type: actions.DeckActionType.RESET_DECK,
+        payload: {
+          deckName: 'DeckA',
+        },
+      }),
+    ).toEqual(stateB);
+  });
 });

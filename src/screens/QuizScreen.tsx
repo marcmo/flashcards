@@ -20,6 +20,7 @@ import * as R from 'ramda';
 import { RootState, Deck, Card } from '../types';
 import { RoundedButton } from '../components/RoundedButton';
 import { Fonts, Colors, Metrics } from '../themes/';
+import * as selectors from '../selectors';
 import { getIcon } from '../lib/appIcons';
 import { log } from '../lib/Logging';
 export { };
@@ -29,6 +30,7 @@ const dimWidth = Dimensions.get('window').width;
 interface Props {
   updateCardIndex: (cardName: string, index: number) => any;
   markAsDone: (deckName: string, cardId: number, correct: boolean) => any;
+  resetDeck: (deckName: string) => any;
   nameOfDeck: string;
   freshCards: Array<Card>;
   correctCards: Array<Card>;
@@ -83,6 +85,14 @@ class QuizScreen extends React.Component<Props, object> {
                 passedStyle={styles.incorrectButton}
                 onPress={() => this.cardDone(currentCard.cardId, false)}
               />
+              {this.props.correctCards.length + this.props.incorrectCards.length > 0 &&
+                <RoundedButton
+                  text="Reset Deck"
+                  passedStyle={styles.resetButton}
+                  passedTextStyle={styles.resetButtonText}
+                  onPress={() => this.props.resetDeck(this.props.nameOfDeck)}
+                />
+              }
             </View>
           </View >
         )
@@ -91,7 +101,7 @@ class QuizScreen extends React.Component<Props, object> {
           <View style={styles.container} >
             <Text>Error for {this.props.nameOfDeck}!!</Text>
           </View >)
-      );
+    );
   }
 
   render() {
@@ -100,6 +110,11 @@ class QuizScreen extends React.Component<Props, object> {
         ? (
           <View style={styles.container} >
             <Text>Quiz for {this.props.nameOfDeck} empty!</Text>
+            <RoundedButton
+              text="Play again"
+              passedStyle={styles.incorrectButton}
+              onPress={() => this.props.resetDeck(this.props.nameOfDeck)}
+            />
           </View >)
         : this.renderCard()
     );
@@ -149,6 +164,13 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.bloodOrange,
     width: dimWidth * .6,
   },
+  resetButton: {
+    borderColor: Colors.coal,
+    borderWidth: 2,
+    width: dimWidth * .6,
+    height: 50,
+    backgroundColor: Colors.snow,
+  },
   buttonText: {
     color: Colors.snow,
     textAlign: 'center',
@@ -156,29 +178,15 @@ const styles = StyleSheet.create({
     fontSize: Fonts.size.medium,
     marginVertical: Metrics.baseMargin,
   },
+  resetButtonText: {
+    color: Colors.coal,
+  },
   icon: {
     fontSize: 30,
     margin: 30,
   },
 });
 
-const findCard = (cardSet: Array<Card>, cardId: number): Card[] => (
-  R.filter((c: Card) => c.cardId === cardId, cardSet)
-);
-const toCardList = (cardSet: Array<Card>, cardIds: Array<number>): Array<Card> => {
-  log.d('toCardList, cardSet:', cardSet);
-  log.d('toCardList, cardIds:', cardIds);
-  const res = R.reduce(R.concat, [], R.map(R.curry(findCard)(cardSet), cardIds));
-  log.d('toCardList:', res);
-  return res;
-};
-const filterDeckCards = (deckName: string, allDecks: Array<Deck>, cardSet: Array<Card>): [Array<Card>, Array<Card>, Array<Card>] => {
-  const deck = R.head(R.filter((d: Deck) => d.name === deckName, allDecks));
-  const fresh = (deck != null) ? deck.freshCards : [];
-  const correct = (deck != null) ? deck.correctCards : [];
-  const incorrect = (deck != null) ? deck.incorrectCards : [];
-  return [toCardList(cardSet, fresh), toCardList(cardSet, correct), toCardList(cardSet, incorrect)];
-};
 const getCardIndex = (deckName: string, allDecks: Array<Deck>): number => {
   const deck = R.head(R.filter((d: Deck) => d.name === deckName, allDecks));
   return (deck != null) ? deck.index : 0;
@@ -187,14 +195,10 @@ interface OwnProps {
   nameOfDeck: string;
 }
 const mapStateToProps = (state: RootState, ownProps: OwnProps) => {
-  const [freshCards, correctCards, incorrectCards] = filterDeckCards(ownProps.nameOfDeck, state.decks.allDecks, state.cardSet);
-  log.d('freshCards:', freshCards);
-  log.d('correctCards:', correctCards);
-  log.d('incorrectCards:', incorrectCards);
   return {
-    freshCards,
-    correctCards,
-    incorrectCards,
+    freshCards: selectors.filterFreshCards(ownProps.nameOfDeck, state),
+    correctCards: selectors.filterCorrectCards(ownProps.nameOfDeck, state),
+    incorrectCards: selectors.filterIncorrectCards(ownProps.nameOfDeck, state),
     cardIndex: getCardIndex(ownProps.nameOfDeck, state.decks.allDecks),
   };
 };
@@ -202,5 +206,6 @@ const mapDispatchToProps = (dispatch) => ({
   updateCardIndex: (deckName: string, index: number) => dispatch(actions.createUpdateDeckIndexAction(deckName, index)),
   markAsDone: (deckName: string, cardId: number, correct: boolean) =>
     dispatch(actions.createMarkDoneAction(deckName, cardId, correct)),
+  resetDeck: (deckName: string) => dispatch(actions.createResetDeckAction(deckName)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(QuizScreen);

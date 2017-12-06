@@ -30,6 +30,7 @@ interface Props {
   freshCardsCount: number;
   correctCardsCount: number;
   incorrectCardsCount: number;
+  resetDeck: (deckName: string) => any;
   navigator: N.Navigator;
 }
 
@@ -83,7 +84,11 @@ class SingleDeckScreen extends React.Component<Props, object> {
     return (
       <View style={styles.container} >
         <Text style={styles.titleText}>{this.props.nameOfDeck}</Text>
-        <Text style={styles.countText}>{this.props.freshCardsCount} fresh cards</Text>
+        <Text
+          style={styles.countText}
+        >
+          {this.props.freshCardsCount} to go ({this.props.correctCardsCount} correct, {this.props.incorrectCardsCount} incorrect)
+        </Text>
         <RoundedButton
           text="Add Card"
           passedStyle={styles.addButton}
@@ -95,6 +100,15 @@ class SingleDeckScreen extends React.Component<Props, object> {
           passedStyle={styles.button}
           onPress={() => this.showQuiz(this.props.nameOfDeck)}
         />
+        {this.props.correctCardsCount + this.props.incorrectCardsCount > 0 &&
+          (
+            <RoundedButton
+              text="Reset Deck"
+              passedStyle={styles.button}
+              onPress={() => this.props.resetDeck(this.props.nameOfDeck)}
+            />
+          )
+        }
       </View >
     );
   }
@@ -176,8 +190,10 @@ interface OwnProps {
 }
 const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
   freshCardsCount: filterFreshCards(ownProps.nameOfDeck, state.decks.allDecks),
-  correctCardsCount: filterFreshCards(ownProps.nameOfDeck, state.decks.allDecks),
-  incorrectCardsCount: filterFreshCards(ownProps.nameOfDeck, state.decks.allDecks),
+  correctCardsCount: filterCorrectCards(ownProps.nameOfDeck, state.decks.allDecks),
+  incorrectCardsCount: filterIncorrectCards(ownProps.nameOfDeck, state.decks.allDecks),
 });
-const mapDispatchToProps = (dispatch) => ({});
+const mapDispatchToProps = (dispatch) => ({
+  resetDeck: (deckName: string) => dispatch(actions.createResetDeckAction(deckName)),
+});
 export default connect(mapStateToProps, mapDispatchToProps)(SingleDeckScreen);

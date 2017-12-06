@@ -35,12 +35,19 @@ export enum DeckActionType {
   UPDATE_DECK_INDEX = 'UPDATE_DECK_INDEX',
   UPDATE_CARD = 'UPDATE_CARD',
   MARK_DONE = 'MARK_DONE',
+  RESET_DECK = 'RESET_DECK',
 }
 export interface AddCard {
   type: DeckActionType.ADD_CARD;
   payload: {
     deckName: string;
     cardId: number;
+  };
+}
+export interface ResetDeck {
+  type: DeckActionType.RESET_DECK;
+  payload: {
+    deckName: string;
   };
 }
 export interface UpdateDeckIndex {
@@ -81,6 +88,7 @@ export interface ChangeDeck {
 export type DeckAction =
   ChangeDeck |
   UpdateDeckIndex |
+  ResetDeck |
   UpdateCard |
   MarkDone |
   AddCard |
@@ -100,6 +108,12 @@ export const createUpdateCardAction = (deckName: string, cardName: string, cardS
     deckName,
     cardName,
     cardStatus,
+  },
+});
+export const createResetDeckAction = (deckName: string): ResetDeck => ({
+  type: DeckActionType.RESET_DECK,
+  payload: {
+    deckName,
   },
 });
 export const createUpdateDeckIndexAction = (deckName: string, index: number): UpdateDeckIndex => ({

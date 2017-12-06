@@ -2,6 +2,7 @@ import * as T from '../types';
 import * as Redux from 'redux';
 import * as actions from './actions';
 import * as R from 'ramda';
+import { selectDeck } from '../selectors';
 import { log } from '../lib/Logging';
 
 const ALL_DECKS = [{
@@ -60,7 +61,7 @@ export const deckReducer: any =
         };
       case actions.DeckActionType.UPDATE_DECK_INDEX:
         {
-          const deck: T.Deck | undefined = R.head(R.filter((d: T.Deck) => d.name === action.payload.deckName, state.allDecks));
+          const deck = selectDeck(action.payload.deckName, state)(state);
           if (deck == null) {
             log.w(`could not find a deck with name ${action.payload.deckName}`);
             return state;
@@ -74,7 +75,7 @@ export const deckReducer: any =
         }
       case actions.DeckActionType.MARK_DONE:
         {
-          const deck: T.Deck | undefined = R.head(R.filter((d: T.Deck) => d.name === action.payload.deckName, state.allDecks));
+          const deck = selectDeck(action.payload.deckName, state)(state);
           if (deck == null) {
             log.w(`could not find a deck with name ${action.payload.deckName}`);
             return state;
@@ -97,6 +98,25 @@ export const deckReducer: any =
               allDecks: R.append(newDeck, restDecks),
             };
           }
+        }
+      case actions.DeckActionType.RESET_DECK:
+        {
+          const deck = selectDeck(action.payload.deckName, state)(state);
+          if (deck == null) {
+            log.w(`could not find a deck with name ${action.payload.deckName}`);
+            return state;
+          }
+          const restDecks = R.filter((d: T.Deck) => d.name !== action.payload.deckName, state.allDecks);
+          const newDeck = {
+            ...deck,
+            freshCards: R.reduce(R.concat, [], [deck.freshCards, deck.correctCards, deck.incorrectCards]),
+            correctCards: [] as number[],
+            incorrectCards: [] as number[],
+          };
+          return {
+            ...state,
+            allDecks: R.append(newDeck, restDecks),
+          };
         }
       default:
         return state;
