@@ -1,4 +1,29 @@
-## Install environment
+![](https://github.com/marcmo/flashcards/blob/master/flashcards.gif)
+
+## Prepare Project Setup
+
+    yarn install
+
+## Run ios simulator
+
+    node ./node_modules/react-native/local-cli/cli.js run-ios
+
+or using ruby rake
+
+    rake ios:run
+
+## Run android simulator
+
+First make sure you have an emulator running or an android phone in debug mode attached
+
+    node ./node_modules/react-native/local-cli/cli.js run-android
+
+or using ruby rake
+
+    rake android:run
+
+
+## Install development environment
 
 ### Add typescript support
 
