@@ -21,6 +21,7 @@
 	},
 	"devDependencies": {
 		"@types/enzyme": "^3.1.4",
+		"@types/jest": "^21.1.8",
 		"@types/ramda": "^0.25.6",
 		"@types/react": "^16.0.25",
 		"@types/react-native": "^0.50.7",
@@ -33,6 +34,7 @@
 		"react-test-renderer": "16.0.0",
 		"reactotron-react-native": "^1.13.2",
 		"reactotron-redux": "^1.13.0",
+		"ts-jest": "^21.2.4",
 		"tslib": "^1.8.0",
 		"tslint": "^5.8.0",
 		"tslint-react": "^3.2.0",
@@ -40,6 +42,18 @@
 		"typescript-formatter": "^7.0.0"
 	},
 	"jest": {
-		"preset": "react-native"
+		"preset": "react-native",
+		"transform": {
+			"^.+\\.jsx?$": "<rootDir>/node_modules/babel-jest",
+			"^.+\\.tsx?$": "ts-jest"
+		},
+		"testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+		"moduleFileExtensions": [
+			"ts",
+			"tsx",
+			"js",
+			"jsx",
+			"json"
+		]
 	}
 }
