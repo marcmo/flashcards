@@ -52,3 +52,4 @@ buck-out/
 */fastlane/screenshots
 keys.txt
 vim-markdown-preview.html
+.vscode
