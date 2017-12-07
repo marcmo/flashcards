@@ -20,6 +20,7 @@ import * as R from 'ramda';
 import { RootState, Deck } from '../types';
 import { Fonts, Colors, Metrics } from '../themes/';
 import { getIcon } from '../lib/appIcons';
+const RNN = require('react-native-notifications');
 import { log } from '../lib/Logging';
 
 import CodePush from 'react-native-code-push';
@@ -55,6 +56,10 @@ class DecksScreen extends React.Component<Props, any> {
 
   componentWillMount() {
     this.checkForUpdates();
+  }
+
+  componentDidMount() {
+    log.d('DecksScreen: componentDidMount');
   }
 
   onNavigatorEvent(event) {

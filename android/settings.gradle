@@ -2,15 +2,17 @@ rootProject.name = 'flashcards'
 include ':appcenter'
 project(':appcenter').projectDir = new File(rootProject.projectDir, '../node_modules/appcenter/android')
 
+include ':reactnativenotifications'
+project(':reactnativenotifications').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-notifications/android')
+
 [
- 'vector-icons/android',
- 'navigation/android/app',
- 'code-push/android/app',
+ 'react-native-vector-icons/android',
+ 'react-native-navigation/android/app',
+ 'react-native-code-push/android/app',
 ].collect { it.split('/', 2) }.each {
   def (module, path) = it
-  def name = "react-native-${module}"
-  def projectName = ":${name}"
-  def nodePath = "${rootProject.projectDir}/../node_modules/${name}/${path}"
+  def projectName = ":${module}"
+  def nodePath = "${rootProject.projectDir}/../node_modules/${module}/${path}"
   include projectName
   project(projectName).projectDir = file(nodePath)
 }

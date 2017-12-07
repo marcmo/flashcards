@@ -38,6 +38,7 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		9729D2861FD1FE3C00E6BBC2 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9729D2531FD1FE0800E6BBC2 /* libCodePush.a */; };
 		9729D2CE1FD2AF8900E6BBC2 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9729D2CD1FD2AF7E00E6BBC2 /* libRNVectorIcons.a */; };
+		977C9E551FD89C57005AC979 /* libRNNotifications.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 977C9E531FD89C37005AC979 /* libRNNotifications.a */; };
 		977F524A1FC4C6BC001623B4 /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 977F52481FC4C659001623B4 /* libReactNativeNavigation.a */; };
 		977F52821FC4D248001623B4 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 977F52771FC4D248001623B4 /* Entypo.ttf */; };
 		977F52831FC4D248001623B4 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 977F52781FC4D248001623B4 /* EvilIcons.ttf */; };
@@ -306,6 +307,13 @@
 			remoteGlobalIDString = 5DBEB1501B18CEA900B34395;
 			remoteInfo = RNVectorIcons;
 		};
+		977C9E521FD89C37005AC979 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 977C9E281FD89C37005AC979 /* RNNotifications.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNNotifications;
+		};
 		977F52301FC4C659001623B4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */;
@@ -371,6 +379,7 @@
 		9729D24D1FD1FE0800E6BBC2 /* CodePush.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
 		9729D2871FD1FE7200E6BBC2 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		9729D2C81FD2AF7E00E6BBC2 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
+		977C9E281FD89C37005AC979 /* RNNotifications.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNNotifications.xcodeproj; path = "../node_modules/react-native-notifications/RNNotifications/RNNotifications.xcodeproj"; sourceTree = "<group>"; };
 		977F52281FC4C659001623B4 /* ReactNativeNavigation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeNavigation.xcodeproj; path = "../node_modules/react-native-navigation/ios/ReactNativeNavigation.xcodeproj"; sourceTree = "<group>"; };
 		977F52771FC4D248001623B4 /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
 		977F52781FC4D248001623B4 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
@@ -399,6 +408,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				977C9E551FD89C57005AC979 /* libRNNotifications.a in Frameworks */,
 				9729D2CE1FD2AF8900E6BBC2 /* libRNVectorIcons.a in Frameworks */,
 				9729D2861FD1FE3C00E6BBC2 /* libCodePush.a in Frameworks */,
 				977F524A1FC4C6BC001623B4 /* libReactNativeNavigation.a in Frameworks */,
@@ -578,6 +588,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				977C9E281FD89C37005AC979 /* RNNotifications.xcodeproj */,
 				9729D2C81FD2AF7E00E6BBC2 /* RNVectorIcons.xcodeproj */,
 				9729D24D1FD1FE0800E6BBC2 /* CodePush.xcodeproj */,
 				977F52281FC4C659001623B4 /* ReactNativeNavigation.xcodeproj */,
@@ -645,6 +656,14 @@
 			isa = PBXGroup;
 			children = (
 				9729D2CD1FD2AF7E00E6BBC2 /* libRNVectorIcons.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		977C9E291FD89C37005AC979 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				977C9E531FD89C37005AC979 /* libRNNotifications.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -862,6 +881,10 @@
 				{
 					ProductGroup = 977F52291FC4C659001623B4 /* Products */;
 					ProjectRef = 977F52281FC4C659001623B4 /* ReactNativeNavigation.xcodeproj */;
+				},
+				{
+					ProductGroup = 977C9E291FD89C37005AC979 /* Products */;
+					ProjectRef = 977C9E281FD89C37005AC979 /* RNNotifications.xcodeproj */;
 				},
 				{
 					ProductGroup = 9729D2C91FD2AF7E00E6BBC2 /* Products */;
@@ -1117,6 +1140,13 @@
 			remoteRef = 9729D2CC1FD2AF7E00E6BBC2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		977C9E531FD89C37005AC979 /* libRNNotifications.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNNotifications.a;
+			remoteRef = 977C9E521FD89C37005AC979 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		977F52311FC4C659001623B4 /* libRCTBlob-tvOS.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1337,7 +1367,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = CSN8RG3Y7T;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-navigation/ios/**";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../node_modules/react-native-navigation/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-notifications/RNNotifications/**",
+				);
 				INFOPLIST_FILE = flashcards/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1356,7 +1389,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = CSN8RG3Y7T;
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-navigation/ios/**";
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../node_modules/react-native-navigation/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-notifications/RNNotifications/**",
+				);
 				INFOPLIST_FILE = flashcards/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (

@@ -3926,6 +3926,13 @@ react-native-navigation@^1.1.284:
   dependencies:
     lodash "4.x.x"
 
+react-native-notifications@^1.1.17:
+  version "1.1.17"
+  resolved "https://registry.yarnpkg.com/react-native-notifications/-/react-native-notifications-1.1.17.tgz#a61f3e7f9a36143d5694c734291b2d19a910638f"
+  dependencies:
+    core-js "^1.0.0"
+    uuid "^2.0.3"
+
 react-native-typescript-transformer@^1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/react-native-typescript-transformer/-/react-native-typescript-transformer-1.1.4.tgz#88bb6d2ccd63f0b4b3cbce99e96c0e9c9e83cabc"
@@ -5082,6 +5089,10 @@ utils-merge@1.0.0:
 uuid@3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.0.1.tgz#6544bba2dfda8c1cf17e629a3a305e2bb1fee6c1"
+
+uuid@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-2.0.3.tgz#67e2e863797215530dff318e5bf9dcebfd47b21a"
 
 uuid@^3.0.0, uuid@^3.1.0:
   version "3.1.0"
