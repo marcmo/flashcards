@@ -3920,9 +3920,9 @@ react-native-code-push@^5.2.0-beta:
     plist "1.2.0"
     xcode "0.9.2"
 
-react-native-navigation@^1.1.284:
-  version "1.1.298"
-  resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.298.tgz#f483896fe41691945808fabb2efbce9fbe83dede"
+react-native-navigation@^1.1.375:
+  version "1.1.375"
+  resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.375.tgz#cd7af3658d2e84a7911fd9891effa0cf59469bb6"
   dependencies:
     lodash "4.x.x"
 

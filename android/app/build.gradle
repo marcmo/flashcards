@@ -4,7 +4,6 @@ import com.android.build.OutputFile
 
 project.ext.react = [
     entryFile: "index.js",
-    nodeExecutableAndArgs : ["${System.env.HOME}/.nvm/versions/node/v8.2.1/bin/node"]
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
