@@ -2,6 +2,7 @@ import * as React from 'react';
 import {
   Platform,
   StyleSheet,
+  Dimensions,
   ScrollView,
   FlatList,
   View,
@@ -23,6 +24,11 @@ import { getIcon } from '../lib/appIcons';
 import { log } from '../lib/Logging';
 
 import CodePush from 'react-native-code-push';
+
+const Screen = {
+  width: Dimensions.get('window').width,
+  height: Dimensions.get('window').height - 75,
+};
 
 const CodePushLocalConfig = {
   updateDialog: CodePush.DEFAULT_UPDATE_DIALOG,

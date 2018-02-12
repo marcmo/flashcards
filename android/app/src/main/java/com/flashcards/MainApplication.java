@@ -1,5 +1,6 @@
 package com.flashcards;
 
+import com.airbnb.android.react.lottie.LottiePackage;
 import com.facebook.react.ReactPackage;
 import com.microsoft.codepush.react.CodePush;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -42,6 +43,7 @@ public class MainApplication extends NavigationApplication {
         // No need to add RnnPackage and MainReactPackage
         return Arrays.<ReactPackage>asList(
                 new VectorIconsPackage(),
+                new LottiePackage(),
                 codePushInstance
         );
     }

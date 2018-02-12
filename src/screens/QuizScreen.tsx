@@ -19,11 +19,20 @@ import * as actions from '../redux/actions';
 import * as R from 'ramda';
 import { RootState, Deck, Card } from '../types';
 import { RoundedButton } from '../components/RoundedButton';
+import Animation from 'lottie-react-native';
 import { Fonts, Colors, Metrics } from '../themes/';
 import * as selectors from '../selectors';
 import { getIcon } from '../lib/appIcons';
 import { log } from '../lib/Logging';
 export { };
+const Screen = {
+  width: Dimensions.get('window').width,
+  height: Dimensions.get('window').height - 75,
+};
+const ANIMATION_DIMENSIONS = {
+  width: Screen.width / 2.0,
+  height: Screen.width / 2.0,
+};
 
 const dimWidth = Dimensions.get('window').width;
 
@@ -111,6 +120,21 @@ class QuizScreen extends React.Component<Props, State> {
                   />
                 }
               </View>
+              <View style={styles.lowerContainer}>
+                <View style={styles.animationContainer}>
+                  <Animation
+                    ref={(animation) => {
+                      this.fetchingAnimation = animation;
+                      if (this.fetchingAnimation != null) {
+                        this.fetchingAnimation.play();
+                      }
+                    }}
+                    style={styles.animation}
+                    loop={true}
+                    source={require('../assets/animations/fetching.json')}
+                  />
+                </View>
+              </View>
             </View >
           )
           :
@@ -136,6 +160,7 @@ class QuizScreen extends React.Component<Props, State> {
     );
   }
 
+  fetchingAnimation;
   render() {
     return (
       (this.props.freshCards.length === 0)
@@ -232,6 +257,24 @@ const styles = StyleSheet.create({
   icon: {
     fontSize: 30,
     margin: 30,
+  },
+  lowerContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  animationContainer: {
+    flex: 1,
+    ...ANIMATION_DIMENSIONS,
+    alignItems: 'center',
+    justifyContent: 'center',
+    // zIndex: 2,
+    // backgroundColor: 'yellow',
+  },
+  animation: {
+    ...ANIMATION_DIMENSIONS,
+    alignItems: 'flex-end',
+    // backgroundColor: Colors.emeraldLight,
   },
 });
 

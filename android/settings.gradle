@@ -1,18 +1,21 @@
 rootProject.name = 'flashcards'
+
+include ':lottie-react-native'
+project(':lottie-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/lottie-react-native/lib/android')
+
 include ':appcenter'
 project(':appcenter').projectDir = new File(rootProject.projectDir, '../node_modules/appcenter/android')
 
-[
- 'vector-icons/android',
- 'navigation/android/app',
- 'code-push/android/app',
-].collect { it.split('/', 2) }.each {
-  def (module, path) = it
-  def name = "react-native-${module}"
-  def projectName = ":${name}"
-  def nodePath = "${rootProject.projectDir}/../node_modules/${name}/${path}"
-  include projectName
-  project(projectName).projectDir = file(nodePath)
-}
+include ':lottie-react-native'
+project(':lottie-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/lottie-react-native/lib/android')
+
+include ':react-native-code-push'
+project(':react-native-code-push').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-code-push/android/app')
+
+include ':react-native-vector-icons'
+project(':react-native-vector-icons').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-vector-icons/android')
+
+include ':react-native-navigation'
+project(':react-native-navigation').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-navigation/android/app')
 
 include ':app'
