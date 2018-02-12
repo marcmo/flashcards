@@ -23,14 +23,14 @@ import { Fonts, Colors, Metrics } from '../themes/';
 import { getIcon } from '../lib/appIcons';
 import { log } from '../lib/Logging';
 
-import CodePush from 'react-native-code-push';
+import CodePush, { SyncOptions, DownloadProgress } from 'react-native-code-push';
 
 const Screen = {
   width: Dimensions.get('window').width,
   height: Dimensions.get('window').height - 75,
 };
 
-const CodePushLocalConfig = {
+const CodePushLocalConfig: SyncOptions = {
   updateDialog: CodePush.DEFAULT_UPDATE_DIALOG,
   installMode: CodePush.InstallMode.IMMEDIATE,
   deploymentKey: Platform.select({
@@ -56,7 +56,11 @@ class DecksScreen extends React.Component<Props, any> {
   }
 
   checkForUpdates = () => {
-    CodePush.sync(CodePushLocalConfig);
+    CodePush.sync(
+      CodePushLocalConfig,
+      (syncStatus: CodePush.SyncStatus) => log.d(`${syncStatus}`),
+      (progress: DownloadProgress) => log.d(`DownloadProgress: received ${progress.receivedBytes}bytes (from ${progress.totalBytes})`),
+    );
   }
 
   componentWillMount() {
