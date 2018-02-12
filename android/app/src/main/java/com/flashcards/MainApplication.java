@@ -2,6 +2,9 @@ package com.flashcards;
 
 import com.airbnb.android.react.lottie.LottiePackage;
 import com.facebook.react.ReactPackage;
+import com.microsoft.appcenter.reactnative.analytics.AppCenterReactNativeAnalyticsPackage;
+import com.microsoft.appcenter.reactnative.appcenter.AppCenterReactNativePackage;
+import com.microsoft.appcenter.reactnative.crashes.AppCenterReactNativeCrashesPackage;
 import com.microsoft.codepush.react.CodePush;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnativenavigation.NavigationApplication;
@@ -44,6 +47,9 @@ public class MainApplication extends NavigationApplication {
         return Arrays.<ReactPackage>asList(
                 new VectorIconsPackage(),
                 new LottiePackage(),
+                new AppCenterReactNativeCrashesPackage(MainApplication.this, getResources().getString(R.string.appcenterCrashes_whenToSendCrashes)),
+                new AppCenterReactNativeAnalyticsPackage(MainApplication.this, getResources().getString(R.string.appcenterAnalytics_whenToEnableAnalytics)),
+                new AppCenterReactNativePackage(MainApplication.this),
                 codePushInstance
         );
     }

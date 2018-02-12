@@ -181,9 +181,21 @@ app-root-path@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/app-root-path/-/app-root-path-2.0.1.tgz#cd62dcf8e4fd5a417efc664d2e5b10653c651b46"
 
-appcenter-link-scripts@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/appcenter-link-scripts/-/appcenter-link-scripts-1.0.1.tgz#c89c252462b0e9d07293e2332fe41158dff385a4"
+appcenter-analytics@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/appcenter-analytics/-/appcenter-analytics-1.2.0.tgz#df5fb7ae0e5f44607caa1ebca31572741c069d90"
+  dependencies:
+    appcenter "1.2.0"
+
+appcenter-crashes@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/appcenter-crashes/-/appcenter-crashes-1.2.0.tgz#de22908cc8e38bcba7418bd156c8c95b49a85441"
+  dependencies:
+    appcenter "1.2.0"
+
+appcenter-link-scripts@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/appcenter-link-scripts/-/appcenter-link-scripts-1.2.0.tgz#26e5c9946d8235406d1a57d480e4be7f98753bf7"
   dependencies:
     debug "^2.2.0"
     glob "^5.0.15"
@@ -193,11 +205,11 @@ appcenter-link-scripts@1.0.1:
     which "^1.2.11"
     xcode "^0.8.9"
 
-appcenter@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/appcenter/-/appcenter-1.0.1.tgz#25aea7f72b1f90de74afeed22a440c489f40ba96"
+appcenter@1.2.0, appcenter@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/appcenter/-/appcenter-1.2.0.tgz#bfd93c86d226cb9c6870801e2996914ccf79caf3"
   dependencies:
-    appcenter-link-scripts "1.0.1"
+    appcenter-link-scripts "1.2.0"
 
 append-transform@^0.4.0:
   version "0.4.0"

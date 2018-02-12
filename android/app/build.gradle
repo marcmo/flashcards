@@ -4,6 +4,7 @@ import com.android.build.OutputFile
 
 project.ext.react = [
     entryFile: "index.js",
+    nodeExecutableAndArgs : ["/usr/local/bin/node"]
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -80,6 +81,13 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-vector-icons')
+    compile project(':react-native-navigation')
+    compile project(':react-native-code-push')
+    compile project(':lottie-react-native')
+    compile project(':appcenter-crashes')
+    compile project(':appcenter-analytics')
+    compile project(':appcenter')
     implementation project(':lottie-react-native')
     implementation project(':appcenter')
     implementation project(':react-native-vector-icons')

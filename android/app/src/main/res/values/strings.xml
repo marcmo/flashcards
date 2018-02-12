@@ -1,4 +1,6 @@
 <resources>
-    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">0jZ6KTNRX6B7yx7gx-mkhTiGbMCrSJwiQxXgf</string>
+    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">3e2deea4-673e-4661-b7e9-92950370dc26</string>
+    <string moduleConfig="true" name="appcenterCrashes_whenToSendCrashes">ALWAYS_SEND</string>
+    <string moduleConfig="true" name="appcenterAnalytics_whenToEnableAnalytics">ALWAYS_SEND</string>
     <string name="app_name">flashcards</string>
 </resources>
